@@ -12,6 +12,8 @@ import org.stjs.javascript.functions.Callback2;
  * components available within this core module.
  * 
  * {@link https://code.angularjs.org/1.4.3/docs/api/ng}
+ * 
+ * Compatible with angular 1.4.3
  */
 public final class Angular {
 
@@ -79,7 +81,8 @@ public final class Angular {
      *
      * @returns {auto.$injector} Returns the newly created injector for this app.
 	 */
-	public native Injector bootstrap(Element element, Object... modules);
+    public native Injector bootstrap(Element element, Object... modules);
+    public native Injector bootstrap(Element element, Object[] modules, Object[] config);
 
 	public native <T> T copy(T source);
 
@@ -103,9 +106,22 @@ public final class Angular {
 
 	public native <T> T fromJson(String json);
 
-	public native Object identity();
+	/**
+	 * A function that returns its first argument. This function is useful when writing code in the
+	 * functional style.
+	 *
+	   ```js
+	     function transformer(transformationFn, value) {
+	       return (transformationFn || angular.identity)(value);
+	     };
+	   ```
+	  * @param {*} value to be returned.
+	  * @returns {*} the value passed in.
+	  **/
+	public native <T> T identity(T value);
 
-	public native Injector injector(Object... modules);
+    public native Injector injector(Object... modules);
+    public native Injector injector(Object[] modules, boolean strictDi);
 
 	public native boolean isElement(Object object);
 
@@ -169,7 +185,7 @@ public final class Angular {
 	 */
 	public native Module module(String name, String... requires);
 
-	public native Module module(String name, Object... requiresAndConfig);
+	public native Module module(String name, String[] requires, Object configFn);
 
 	public native boolean isUndefined(Object object);
 
@@ -179,7 +195,13 @@ public final class Angular {
 
 	public native String lowercase(String s);
 
-	public native Object noop();
+	public native void noop();
+	
+	/**
+	 * Use this function to reload the current application with debug information turned on.
+	 * This takes precedence over a call to $compileProvider.debugInfoEnabled(false).
+	 */
+	public native void reloadWithDebugInfo();
 
 	public native String toJson(Object obj);
 
