@@ -5,10 +5,17 @@ import org.stjs.javascript.Array;
 import org.stjs.javascript.annotation.SyntheticType;
 import org.stjs.javascript.functions.Callback;
 import org.stjs.javascript.functions.Callback2;
+import org.stjs.javascript.functions.Function;
 import org.stjs.javascript.functions.Function0;
 
 @SyntheticType
 @SuppressWarnings("hiding")
+/**
+ * Interface for configuring angular modules.
+ * 
+ * {@link https://code.angularjs.org/1.4.3/docs/api/ng/type/angular.Module}
+ *
+ */
 public final class Module {
 	public String name;
 
@@ -22,15 +29,20 @@ public final class Module {
 
 	public native void constant(String name, Object object);
 
-	public native void controller(String name, Object constructor);
+	public native void controller(String name, Class<?> constructor);
 
-	public native void controller(String name, Array<? extends Object> decoratedConstructor);
+	// I remove this because there's no documentation how to use it.
+//	public native void controller(String name, Array<? extends Object> decoratedConstructor);
 
-	public native void directive(String name, Object directiveFactory);
+    /**
+     * Register a new directive
+     * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
+     * @param directive a factory that creates a directive to register
+     */
+	public native void directive(String name, Function0<Directive> directiveFactory);
 
-	public native void directive(String name, Function0<Object> simpleConstructor);
-
-	public native void directive(String name, Array<? extends Object> decoratedFactory);
+    // I remove this because there's no documentation how to use it.
+//	public native void directive(String name, Array<? extends Object> decoratedFactory);
 
 	public native void factory(String name, Object providerFunction);
 

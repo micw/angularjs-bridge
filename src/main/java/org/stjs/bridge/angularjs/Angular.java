@@ -183,7 +183,7 @@ public final class Angular {
      *     {@link angular.Module#config Module#config()}.
      * @returns {module} new module with the {@link angular.Module} api.
 	 */
-	public native Module module(String name, String... requires);
+	public native Module module(String name, Array<String> requires);
 
 	public native Module module(String name, String[] requires, Object configFn);
 
